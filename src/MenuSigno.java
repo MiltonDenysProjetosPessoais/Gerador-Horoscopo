@@ -1,15 +1,14 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
 public class MenuSigno {
 
 	String path="";
-	String sig="";
+	
+	//metodo para imprimir na tela os signos para o usuario inserir o numero desejado
 	public void menuSignos() {
 		System.out.println("######## SORTEADOR DE FRASES DE SIGNOS ########\n");
 		System.out.println("1.Áries");
@@ -24,37 +23,36 @@ public class MenuSigno {
 		System.out.println("10.Capricórnio");
 		System.out.println("11.Aquário");
 		System.out.println("12.Peixes");		
-		System.out.println("\nSelecione a opção do signo desejado:");
+		System.out.println("\nSelecione o número do signo desejado:");
 		
 	}
 	
-	
+	//metodo para gerar número aleatório
 	public int random() {
 		Random aleatorio = new Random();
-		int random = aleatorio.nextInt(6);
+		int random = aleatorio.nextInt(5);
 		return random;
-	
 	}
 	
-	
+	//metodo que recebe entrada do usuario 
 	public void entradaSigno() throws FileNotFoundException {
-		int[] signo = new int[12];
 		Scanner scan = new Scanner(System.in);
-		
-		int inputSigno = scan.nextInt(); 		
+		//recebe input do usuario
+		int inputSigno = scan.nextInt(); 
+		//valida que usuario não digitou um numero maior que 12 e menor que 1
+		//caso o usuario digite um numero incorreto é apresentado o menu novamente solicitandpo um novo input
 		while(inputSigno>12 || inputSigno <1) {
-			System.out.println(true);
 			menuSignos();
-			inputSigno = scan.nextInt(); 		
-			
+			inputSigno = scan.nextInt(); 					
 		}
 		
+		//com o input do usuario recebe em uma variavel o caminho do signo correto
 		switch(inputSigno) {
 		
 		case 1:
+			//neste caso por exemplo a variavel recebe este caminho -  E:\\workplace_eclipse\\Gerador de Horoscopo\\src\\resources\\Aries 
 			path = ListaCaminhoTXT.menu(0).toString();
 			break;		
-		
 		case 2:
 			path = ListaCaminhoTXT.menu(1).toString();
 			break;
@@ -67,62 +65,45 @@ public class MenuSigno {
 		case 5:
 			path = ListaCaminhoTXT.menu(4).toString();
 			break;
+		case 6:
+			path = ListaCaminhoTXT.menu(5).toString();
+			break;
+		case 7:
+			path = ListaCaminhoTXT.menu(6).toString();
+			break;
+		case 8:
+			path = ListaCaminhoTXT.menu(7).toString();
+			break;
+		case 9:
+			path = ListaCaminhoTXT.menu(8).toString();
+			break;
+		case 10:
+			path = ListaCaminhoTXT.menu(9).toString();
+			break;
+		case 11:
+			path = ListaCaminhoTXT.menu(10).toString();
+			break;
+		case 12:
+			path = ListaCaminhoTXT.menu(11).toString();
+			break;
 	}
-		
-		//Scanner s= new Scanner(new File("E:\\workplace_eclipse\\Gerador de Horoscopo\\src\\resources\\Touro.txt"));
-		Scanner s = new Scanner(new File(path));
-		ArrayList<String> list = new ArrayList<String>();
-		while (s.hasNext()){
-		   list.add(s.nextLine());
-		  // sig = s.nextLine();
-		}
-		
-		
-		
-		
-		
-		
-		
-		System.out.println(list.get(0));
-		//System.out.println(path);
-		System.out.println(sig);
-
-
-//		System.out.println(signos.get(1));
-//		System.out.println(signos.get(2));
-//		System.out.println(signos.get(3));
-//		System.out.println(signos.get(4));
-//		System.out.println(signos.get(5));
-
-
-//		
-//		while(inputSigno>12 || inputSigno <1) {
-//			System.out.println(true);
-//			break;
-//		}
-//		
-//		char[] nome_arquivo= new char[50];
-//		String[] diretorio_arquivo = {"/Gerador de Horoscopo/src/resources"} ;
-//
-//		switch(inputSigno) {
-//		
-//		case 1:
-//			String result = "%s:%s".formatted(nome_arquivo, "touro.txt");
-//			break;		
-//		}
-		
-		//System.out.println(inputSigno);
-//		signo[1] = 36;
-//		System.out.println(signo[1]);
+				
 	}
-	
-//	 while ( (signo > 12) || (signo < 1) ){
-//	       printf("\nEssa opção que você escolheu não existe. Tente novamente.\n");
-//	       imprimir_menu();
-//	       gets(entrada);
-//	       signo = atoi(entrada);
-//	   }
-	
-	
-	
+	//metodo que recebe o caminho pela variavel path 
+	public void resposta() {
+		try {
+			//recebe caminho do arquivo e armazena na variavel s
+			Scanner s = new Scanner(new File(path));
+			//cria lista de String
+			ArrayList<String> list = new ArrayList<String>();
+			//percorre as frases dentro do txt 
+			while (s.hasNext()){
+				//adiciona dentro da lista cada frase
+			   list.add(s.nextLine());
+			}
+			//imprime para o usuario uma das frases dentro do txt de forma randomica
+			System.out.println(list.get(random()));
+		} catch (Exception e) {	
+		}	
+	}
 }
